@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Reacti-Do is a MERN stack TODO list application and this the backend of it.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=../.env --watch ./src/server.js",
+    "start": "node ./src/server.js"
+  },
+  "keywords": [
+    "Reacti-Do",
+    "ToDo",
+    "List",
+    "Todo",
+    "MERN",
+    "Task",
+    "Planner",
+    "Too",
+    "Do",
+    "React"
+  ],
+  "author": "Kiran Mahajan",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2"
+  }
+}
