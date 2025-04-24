@@ -6,13 +6,14 @@ import {
   signup,
   updateProfile,
 } from "../controllers/auth.controller";
+import protectRoute from "../middleware/protectRoute.middleware";
 
 const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
-router.get("/check-auth", checkAuth);
-router.put("/update-profile", updateProfile);
+router.get("/check-auth", protectRoute, checkAuth);
+router.put("/update-profile", protectRoute, updateProfile);
 
 export default router;
