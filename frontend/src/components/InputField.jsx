@@ -23,7 +23,7 @@ const InputField = ({
         <input
           type={type}
           id={fieldName}
-          className="input input-bordered w-full px-10"
+          className="input input-bordered w-full rounded-lg px-10"
           placeholder={placeholder}
           value={formData[fieldName]}
           onChange={(e) => {
