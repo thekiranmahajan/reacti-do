@@ -1,4 +1,5 @@
 import express from "express";
+import authRoutes from "./routes/auth.route.js";
 import cors from "cors";
 import { connectDB } from "./lib/db.js";
 
@@ -10,6 +11,7 @@ app.use(
     credentials: true,
   })
 );
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is Running 🟢");
