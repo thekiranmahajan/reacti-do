@@ -5,13 +5,18 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import SettingsPage from "../pages/SettingsPage";
 import ProfilePage from "../pages/ProfilePage";
-import { isAuthenticated } from "./constants";
+import useAuthStore from "../store/useAuthStore";
 
-const allowOnlyAuthenticated = () => {
-  return isAuthenticated ? null : redirect("/login");
-};
-const allowOnlyUnauthenticated = () => {
-  return !isAuthenticated ? null : redirect("/");
+const checkAuth = (shouldBeAuthenticated) => {
+  const authUser = useAuthStore.getState().authUser;
+
+  if (shouldBeAuthenticated && !authUser) {
+    return redirect("/login");
+  }
+  if (!shouldBeAuthenticated && authUser) {
+    return redirect("/");
+  }
+  return null;
 };
 
 const router = createBrowserRouter([
@@ -21,22 +26,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        loader: allowOnlyAuthenticated,
+        loader: checkAuth(true),
         Component: HomePage,
       },
       {
         path: "/profile",
-        loader: allowOnlyAuthenticated,
+        loader: checkAuth(true),
         Component: ProfilePage,
       },
       {
         path: "/login",
-        loader: allowOnlyUnauthenticated,
+        loader: checkAuth(false),
         Component: LoginPage,
       },
       {
         path: "/signup",
-        loader: allowOnlyUnauthenticated,
+        loader: checkAuth(false),
         Component: SignupPage,
       },
       {
