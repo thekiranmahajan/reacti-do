@@ -1,7 +1,12 @@
 import React from "react";
+import Header from "./components/Header";
 
 const App = () => {
-  return <div className="border-red-500 text-5xl">Reacti-Do</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default App;
