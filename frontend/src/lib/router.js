@@ -7,15 +7,20 @@ import SettingsPage from "../pages/SettingsPage";
 import ProfilePage from "../pages/ProfilePage";
 import useAuthStore from "../store/useAuthStore";
 
-const checkAuth = (shouldBeAuthenticated) => {
-  const authUser = useAuthStore.getState().authUser;
+const checkAuth = async (shouldBeAuthenticated) => {
+  const { checkAuth } = useAuthStore.getState();
+  await checkAuth();
+
+  const { authUser } = useAuthStore.getState();
 
   if (shouldBeAuthenticated && !authUser) {
     return redirect("/login");
   }
+
   if (!shouldBeAuthenticated && authUser) {
     return redirect("/");
   }
+
   return null;
 };
 
