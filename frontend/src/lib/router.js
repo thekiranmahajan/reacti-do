@@ -26,22 +26,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        loader: checkAuth(true),
+        loader: () => checkAuth(true),
         Component: HomePage,
       },
       {
         path: "/profile",
-        loader: checkAuth(true),
+        loader: () => checkAuth(true),
         Component: ProfilePage,
       },
       {
         path: "/login",
-        loader: checkAuth(false),
+        loader: () => checkAuth(false),
         Component: LoginPage,
       },
       {
         path: "/signup",
-        loader: checkAuth(false),
+        loader: () => checkAuth(false),
         Component: SignupPage,
       },
       {
