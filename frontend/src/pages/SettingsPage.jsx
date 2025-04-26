@@ -20,7 +20,7 @@ const SettingsPage = () => {
           </Link>
         </div>
         {/* Themes */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-8">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
           {THEMES.map((t) => (
             <button
               key={t}
@@ -33,14 +33,14 @@ const SettingsPage = () => {
             >
               <div
                 data-theme={t}
-                className="relative h-8 w-full overflow-hidden rounded-md"
+                className="relative h-8 w-full overflow-hidden rounded-sm"
                 title={t.charAt(0).toUpperCase() + t.slice(1)}
               >
                 <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
-                  <div className="bg-primary rounded"></div>
-                  <div className="bg-secondary rounded"></div>
-                  <div className="bg-accent rounded"></div>
-                  <div className="bg-neutral rounded"></div>
+                  <div className="bg-primary border-base-300 rounded border-2"></div>
+                  <div className="bg-secondary border-base-300 rounded border-2"></div>
+                  <div className="bg-accent border-base-300 rounded border-2"></div>
+                  <div className="bg-neutral border-base-300 rounded border-2"></div>
                 </div>
               </div>
               <span className="w-full truncate text-center text-xs font-medium">
