@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useTodoListStore from "../store/useTodoListStore";
+import useAuthStore from "../store/useAuthStore";
 
 const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
+  const { todoLists, getTodoLists } = useTodoListStore();
+  const { authUser } = useAuthStore();
+  console.log(todoLists);
 
-export default HomePage
+  useEffect(() => {
+    if (!authUser) return;
+    getTodoLists();
+  }, [getTodoLists, authUser]);
+
+  return <div>HomePage</div>;
+};
+
+export default HomePage;

@@ -18,8 +18,8 @@ app.use(
   })
 );
 app.use("/api/auth", authRoutes);
-app.use("/api/todoList", todoListRoute);
-app.use("/api/todoItem", todoItemRoute);
+app.use("/api/todolist", todoListRoute);
+app.use("/api/todoltem", todoItemRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is Running 🟢");
