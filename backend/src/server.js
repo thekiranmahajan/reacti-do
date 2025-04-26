@@ -21,13 +21,13 @@ app.use(
 );
 app.use("/api/auth", authRoutes);
 app.use("/api/todolist", todoListRoute);
-app.use("/api/todoltem", todoItemRoute);
+app.use("/api/todoitem", todoItemRoute);
 
 /*********PRODUCTION CODE**********/
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
   });
 }
