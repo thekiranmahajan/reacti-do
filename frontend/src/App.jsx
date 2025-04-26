@@ -11,9 +11,11 @@ import ProfilePage from "./pages/ProfilePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
+import useThemeStore from "./store/useThemeStore";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     checkAuth();
@@ -27,7 +29,7 @@ const App = () => {
     );
 
   return (
-    <div className="font-JosefinSans">
+    <div data-theme={theme} className="font-JosefinSans">
       <Header />
       <Routes>
         <Route
