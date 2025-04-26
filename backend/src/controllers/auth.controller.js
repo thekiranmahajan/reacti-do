@@ -1,4 +1,4 @@
-import { generateToken } from "../lib/utils.js";
+import { catchError, generateToken } from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bycrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js";
@@ -41,10 +41,7 @@ export const signup = async (req, res) => {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
-    console.log("Error in signup controller: ", error.message);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
+    catchError(res, error, "signup controller");
   }
 };
 export const login = async (req, res) => {
@@ -72,10 +69,7 @@ export const login = async (req, res) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
-    console.log("Error in login controller: ", error.message);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
+    catchError(res, error, "login controller");
   }
 };
 export const logout = async (req, res) => {
@@ -83,18 +77,14 @@ export const logout = async (req, res) => {
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.log("Error in logout controller: ", error.message);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
+    catchError(res, error, "logout controller");
   }
 };
 export const checkAuth = async (req, res) => {
   try {
     res.status(200).json(req.user);
   } catch (error) {
-    console.log("Error in checkAuth controller: ", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    catchError(res, error, "checkAuth controller");
   }
 };
 export const updateProfile = async (req, res) => {
@@ -120,7 +110,6 @@ export const updateProfile = async (req, res) => {
     );
     res.status(200).json(updatedUser);
   } catch (error) {
-    console.log("Error in updateProfile controller: ", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    catchError(res, error, "updateProfile controller");
   }
 };

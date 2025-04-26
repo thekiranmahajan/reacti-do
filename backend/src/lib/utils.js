@@ -13,3 +13,8 @@ export const generateToken = (userId, res) => {
   });
   return token;
 };
+
+export const catchError = (res, error, location) => {
+  console.log(`Error in ${location}: `, error.message);
+  res.status(500).json({ message: "Internal Server Error" });
+};
