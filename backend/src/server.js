@@ -5,6 +5,7 @@ import todoItemRoute from "./routes/todoItem.route.js";
 import cors from "cors";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
+import path from "node:path";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
