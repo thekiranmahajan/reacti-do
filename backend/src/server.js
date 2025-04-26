@@ -10,6 +10,7 @@ import path from "node:path";
 const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
+console.log(__dirname);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -25,10 +26,12 @@ app.use("/api/todoitem", todoItemRoute);
 
 /*********PRODUCTION CODE**********/
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, "../frontend/dist")));
+  const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+
+  app.use(express.static(frontendPath));
 
   app.get("/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
 /*********PRODUCTION CODE**********/
