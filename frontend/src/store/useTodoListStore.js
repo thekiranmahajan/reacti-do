@@ -3,84 +3,89 @@ import axiosInstance from "../lib/axiosInstance";
 import toast from "react-hot-toast";
 
 const useTodoListStore = create((set, get) => ({
-  isLoadingTodoLists: false,
-  todoLists: [],
-  isLoadingSelectedTodoList: false,
-  selectedTodoList: null,
+  isListsLoading: false,
+  lists: [],
+  isListItemsLoading: false,
 
-  getTodoLists: async () => {
-    set({ isLoadingTodoLists: true });
+  selectedListId: null,
+  setSelectedListId: (selectedListId) => {
+    set({ selectedListId });
+  },
+
+  getLists: async () => {
+    set({ isListsLoading: true });
     try {
       const { data } = await axiosInstance.get("/todolist");
-      set({ todoLists: data });
+      set({ lists: data });
     } catch (error) {
-      console.log("Error in getTodoLists fn", error);
+      console.log("Error in getLists fn", error);
       toast.error(error.response?.data?.message);
-      set({ todoLists: [] });
+      set({ lists: [] });
     } finally {
-      set({ isLoadingTodoLists: false });
+      set({ isListsLoading: false });
     }
   },
 
-  getTodoList: async (listId) => {
-    set({ isLoadingSelectedTodoList: true });
+  getList: async (listId) => {
+    set({ isListItemsLoading: true });
     try {
       const { data } = await axiosInstance.get(`/todolist/${listId}`);
-      set({ selectedTodoList: data });
+      set({ selectedListId: data?._id });
     } catch (error) {
-      console.log("Error in getTodoList fn", error);
+      console.log("Error in getList fn", error);
       toast.error(error.response?.data?.message);
-      set({ selectedTodoList: null });
+      set({ selectedListId: null });
     } finally {
-      set({ isLoadingSelectedTodoList: false });
+      set({ isListItemsLoading: false });
     }
   },
 
-  createTodoList: async (todoListName) => {
+  createList: async (todoListName) => {
     try {
-      const { data } = axiosInstance.post("/todolist/create", todoListName);
+      const { data } = axiosInstance.post("/todolist/create", { todoListName });
 
-      set({ todoLists: [...get().todoLists, data] });
+      set((state) => ({
+        lists: [...state.lists, data],
+        selectedListId: data?._id,
+      }));
       toast.success("TodoList created successfully!");
     } catch (error) {
-      console.log("Error in createTodoList fn", error);
+      console.log("Error in createList fn", error);
       toast.error(error.response?.data?.message);
     }
   },
-  updateTodoList: async (listId, todoListName) => {
+  updateList: async (listId, todoListName) => {
     try {
       const { data } = await axiosInstance.patch(`/todolist/update/${listId}`, {
         todoListName,
       });
       set({
-        todoLists: get().todoLists.map((list) =>
-          list._id === data._id ? data : list,
-        ),
-        selectedTodoList:
-          get().selectedTodoList && get().selectedTodoList._id === data._id
+        lists: get().lists.map((list) => (list._id === data._id ? data : list)),
+        selectedListId:
+          get().selectedListId && get().selectedListId._id === data._id
             ? data
-            : get().selectedTodoList,
+            : get().selectedListId,
       });
       toast.success("TodoList updated successfully!");
     } catch (error) {
-      console.log("Error in updateTodoList fn", error);
+      console.log("Error in updateList fn", error);
       toast.error(error.response?.data?.message);
     }
   },
 
-  deleteTodoList: async (listId) => {
+  deleteList: async (listId) => {
     try {
       await axiosInstance.delete(`/todolist/delete/${listId}`);
       set({
-        todoLists: get().todoLists.filter((list) => list._id !== listId),
-        selectedTodoList:
-          get().selectedTodoList && get().selectedTodoList._id === listId
+        lists: get().lists.filter((list) => list._id !== listId),
+        selectedListId:
+          get().selectedListId && get().selectedListId._id === listId
             ? null
-            : get().selectedTodoList,
+            : get().selectedListId,
       });
       toast.success("TodoList deleted successfully!");
     } catch (error) {
-      console.log("Error in deleteTodoList fn", error);
+      console.log("Error in deleteList fn", error);
       toast.error(error.response?.data?.message);
     }
   },
