@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "motion/react";
 import useTodoItemStore from "../store/useTodoItemStore";
 import useTodoListStore from "../store/useTodoListStore";
 import CreatorInput from "./CreatorInput";
+import toast from "react-hot-toast";
+import EditableInput from "./EditableInput";
 
 const TodoItems = () => {
   const { todoItems, isItemsLoading, createItem, updateItem, deleteItem } =
@@ -12,7 +14,6 @@ const TodoItems = () => {
 
   const [newItem, setNewItem] = useState("");
   const [editingItemId, setEditingItemId] = useState(null);
-  const [editItemText, setEditItemText] = useState("");
 
   const handleCreateItem = (e) => {
     e.preventDefault();
@@ -21,9 +22,14 @@ const TodoItems = () => {
     setNewItem("");
   };
 
-  const handleUpdateItemText = (itemId) => {
-    if (!editItemText.trim()) return;
-    updateItem(itemId, { text: editItemText });
+  const handleUpdateItemText = (itemId, newText, originalText) => {
+    if (!newText.trim()) return;
+    if (newText.trim() === originalText) {
+      toast.error("No changes detected.");
+      setEditingItemId(null);
+      return;
+    }
+    updateItem(itemId, { text: newText });
     setEditingItemId(null);
   };
 
@@ -34,7 +40,6 @@ const TodoItems = () => {
 
   const startEditing = (item) => {
     setEditingItemId(item._id);
-    setEditItemText(item.text);
   };
 
   return (
@@ -51,7 +56,7 @@ const TodoItems = () => {
             setNewName={setNewItem}
             placeholder="New todo item"
           />
-          
+
           <div className="flex-1 overflow-y-auto text-sm md:text-base">
             {isItemsLoading ? (
               <div className="flex items-center justify-center p-4">
@@ -73,21 +78,14 @@ const TodoItems = () => {
                       transition={{ duration: 0.2 }}
                     >
                       {editingItemId === item._id ? (
-                        <div className="flex items-center gap-2 p-1">
-                          <input
-                            type="text"
-                            value={editItemText}
-                            onChange={(e) => setEditItemText(e.target.value)}
-                            className="input input-bordered input-sm flex-1"
-                            autoFocus
-                          />
-                          <button
-                            onClick={() => handleUpdateItemText(item._id)}
-                            className="btn btn-primary btn-sm"
-                          >
-                            Save
-                          </button>
-                        </div>
+                        <EditableInput
+                          initialValue={item.text}
+                          onSave={(value, originalValue) =>
+                            handleUpdateItemText(item._id, value, originalValue)
+                          }
+                          onCancel={() => setEditingItemId(null)}
+                          autoFocus
+                        />
                       ) : (
                         <div className="bg-base-100 flex items-center justify-between gap-2 rounded-md p-2 shadow-sm">
                           <div className="flex flex-1 items-center gap-2">

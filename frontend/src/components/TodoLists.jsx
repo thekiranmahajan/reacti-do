@@ -1,8 +1,10 @@
 import { useState } from "react";
 import useTodoListStore from "../store/useTodoListStore";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Loader2, PenSquare, Trash2 } from "lucide-react";
 import CreatorInput from "./CreatorInput";
+import EditableInput from "./EditableInput";
+import toast from "react-hot-toast";
 
 const TodoLists = () => {
   const {
@@ -16,7 +18,6 @@ const TodoLists = () => {
   } = useTodoListStore();
   const [newListName, setNewListName] = useState("");
   const [editingListId, setEditingListId] = useState(null);
-  const [editListName, setEditListName] = useState("");
 
   const handleCreateList = (e) => {
     e.preventDefault();
@@ -24,16 +25,19 @@ const TodoLists = () => {
     createList(newListName);
     setNewListName("");
   };
-  const handleUpdateList = (listId) => {
-    if (!editListName.trim()) return;
-    updateList({ listId: listId, todoListName: editListName });
-
+  const handleUpdateList = (listId, newName, originalName) => {
+    if (!newName.trim()) return;
+    if (newName.trim() === originalName) {
+      toast.error("No changes detected.");
+      setEditingListId(null);
+      return;
+    }
+    updateList({ listId: listId, todoListName: newName });
     setEditingListId(null);
   };
 
   const startEditing = (list) => {
     setEditingListId(list?._id);
-    setEditListName(list?.todoListName);
   };
 
   return (
@@ -57,54 +61,55 @@ const TodoLists = () => {
             No lists yet. Create one!
           </div>
         ) : (
-          <ul className="space-y-2">
-            {lists?.map((list) => (
-              <li key={list?._id}>
-                {editingListId === list?._id ? (
-                  <div className="flex items-center gap-2 p-1">
-                    <input
-                      type="text"
-                      value={editListName}
-                      onChange={(e) => setEditListName(e.target.value)}
-                      className="input input-bordered input-sm flex-1"
+          <AnimatePresence>
+            <ul className="space-y-2">
+              {lists?.map((list) => (
+                <motion.li
+                  key={list?._id}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {editingListId === list?._id ? (
+                    <EditableInput
+                      initialValue={list.todoListName}
+                      onSave={(value, originalValue) =>
+                        handleUpdateList(list._id, value, originalValue)
+                      }
+                      onCancel={() => setEditingListId(null)}
                       autoFocus
                     />
-                    <button
-                      onClick={() => handleUpdateList(list?._id)}
-                      className="btn btn-primary btn-sm"
+                  ) : (
+                    <div
+                      className={`hover:bg-base-300 in-checked: flex justify-between rounded-sm p-2 ${selectedListId === list._id ? "bg-base-300" : ""}`}
                     >
-                      Save
-                    </button>
-                  </div>
-                ) : (
-                  <div
-                    className={`hover:bg-base-300 in-checked: flex justify-between rounded-sm p-2 ${selectedListId === list._id ? "bg-base-300" : ""}`}
-                  >
-                    <button
-                      onClick={() => setSelectedListId(list?._id)}
-                      className="flex-1 cursor-pointer text-left text-sm sm:text-base"
-                    >
-                      {list.todoListName}
-                    </button>
-                    <div className="flex gap-1">
                       <button
-                        onClick={() => startEditing(list)}
-                        className="btn btn-ghost btn-xs"
+                        onClick={() => setSelectedListId(list?._id)}
+                        className="flex-1 cursor-pointer text-left text-sm sm:text-base"
                       >
-                        <PenSquare size={14} />
+                        {list.todoListName}
                       </button>
-                      <button
-                        onClick={() => deleteList(list._id)}
-                        className="btn btn-ghost btn-xs text-error"
-                      >
-                        <Trash2 size={14} />
-                      </button>
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => startEditing(list)}
+                          className="btn btn-ghost btn-xs"
+                        >
+                          <PenSquare size={14} />
+                        </button>
+                        <button
+                          onClick={() => deleteList(list._id)}
+                          className="btn btn-ghost btn-xs text-error"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+                  )}
+                </motion.li>
+              ))}
+            </ul>
+          </AnimatePresence>
         )}
       </div>
     </motion.div>
