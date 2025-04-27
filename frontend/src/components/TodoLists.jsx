@@ -14,7 +14,6 @@ const TodoLists = () => {
     deleteList,
   } = useTodoListStore();
   const [newListName, setNewListName] = useState("");
-
   const [editingListId, setEditingListId] = useState(null);
   const [editListName, setEditListName] = useState("");
 
@@ -26,7 +25,8 @@ const TodoLists = () => {
   };
   const handleUpdateList = (listId) => {
     if (!editListName.trim()) return;
-    updateList(listId, editListName);
+    updateList({ listId: listId, todoListName: editListName });
+
     setEditingListId(null);
   };
 
@@ -98,7 +98,7 @@ const TodoLists = () => {
                         <PenSquare size={14} />
                       </button>
                       <button
-                        onClick={() => deleteList(list?._id)}
+                        onClick={() => deleteList(list._id)}
                         className="btn btn-ghost btn-xs text-error"
                       >
                         <Trash2 size={14} />
