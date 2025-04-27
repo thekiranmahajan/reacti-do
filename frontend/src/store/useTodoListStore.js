@@ -42,7 +42,9 @@ const useTodoListStore = create((set, get) => ({
 
   createList: async (todoListName) => {
     try {
-      const { data } = axiosInstance.post("/todolist/create", { todoListName });
+      const { data } = await axiosInstance.post("/todolist/create", {
+        todoListName,
+      });
 
       set((state) => ({
         lists: [...state.lists, data],
