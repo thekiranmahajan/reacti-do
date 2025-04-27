@@ -56,7 +56,7 @@ const useTodoListStore = create((set, get) => ({
       toast.error(error.response?.data?.message);
     }
   },
-  updateList: async (listId, todoListName) => {
+  updateList: async ({ listId, todoListName }) => {
     try {
       const { data } = await axiosInstance.patch(`/todolist/update/${listId}`, {
         todoListName,
