@@ -3,6 +3,7 @@ import { Check, PenSquare, Trash2, Loader2, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import useTodoItemStore from "../store/useTodoItemStore";
 import useTodoListStore from "../store/useTodoListStore";
+import CreatorInput from "./CreatorInput";
 
 const TodoItems = () => {
   const { todoItems, isItemsLoading, createItem, updateItem, deleteItem } =
@@ -37,26 +38,20 @@ const TodoItems = () => {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <h2 className="mb-4 text-xl font-bold">
         {selectedListId ? "Todo Items" : "Select a list"}
       </h2>
 
       {selectedListId && (
         <>
-          <form onSubmit={handleCreateItem} className="mb-4 flex gap-2">
-            <input
-              type="text"
-              value={newItem}
-              onChange={(e) => setNewItem(e.target.value)}
-              placeholder="New todo item"
-              className="input input-bordered input-sm flex-1"
-            />
-            <button type="submit" className="btn btn-primary btn-sm">
-              <Plus size={16} />
-            </button>
-          </form>
-
+          <CreatorInput
+            handleCreate={handleCreateItem}
+            newName={newItem}
+            setNewName={setNewItem}
+            placeholder="New todo item"
+          />
+          
           <div className="flex-1 overflow-y-auto text-sm md:text-base">
             {isItemsLoading ? (
               <div className="flex items-center justify-center p-4">

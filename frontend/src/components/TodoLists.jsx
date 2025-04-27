@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useTodoListStore from "../store/useTodoListStore";
 import { motion } from "motion/react";
-import { Loader2, PenSquare, Plus, Trash2 } from "lucide-react";
+import { Loader2, PenSquare, Trash2 } from "lucide-react";
+import CreatorInput from "./CreatorInput";
 
 const TodoLists = () => {
   const {
@@ -39,18 +40,13 @@ const TodoLists = () => {
     <motion.div className="flex w-full flex-col p-4">
       <h2 className="mb-4 text-xl font-bold underline">Todo Lists</h2>
 
-      <form onSubmit={handleCreateList} className="mb-4 flex gap-2">
-        <input
-          type="text"
-          value={newListName}
-          onChange={(e) => setNewListName(e.target.value)}
-          placeholder="New list name"
-          className="input input-sm input-accent flex-1"
-        />
-        <button type="submit" className="btn btn-primary btn-sm">
-          <Plus size={16} />
-        </button>
-      </form>
+      <CreatorInput
+        handleCreate={handleCreateList}
+        newName={newListName}
+        setNewName={setNewListName}
+        placeholder="New list name"
+      />
+
       <div className="max-h-[calc(100vh-180px)] overflow-y-auto">
         {isListsLoading ? (
           <div className="flex items-center justify-center p-4">
