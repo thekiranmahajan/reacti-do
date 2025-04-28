@@ -1,0 +1,21 @@
+{
+  "short_name": "Reacti-Do",
+  "name": "Reacti-Do - Best MERN Stack ToDo App",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo.svg",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "description": "Create, edit, manage your tasks with Reacti-Do. Minimal, fast, secure MERN stack todo app."
+}
