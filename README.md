@@ -11,6 +11,11 @@ It offers user authentication, protected routes, dynamic theming, smooth UI tran
 ## 📸 Preview
 
 Here are some screenshots showcasing Reacti-Do:
+![Screenshot 2025-04-28 100857](https://github.com/user-attachments/assets/da478bd2-dbb7-47cc-8b17-e64d2e8573ec)
+![Screenshot 2025-04-28 101341](https://github.com/user-attachments/assets/af89b913-c59e-4831-88d8-49f2ddbfaab6)
+![Screenshot 2025-04-28 101352](https://github.com/user-attachments/assets/03be6bde-0fbf-430a-8176-15dd0875cdf5)
+![Screenshot 2025-04-28 101429](https://github.com/user-attachments/assets/5b1ef229-883f-4f41-a51d-7d77961c0e2d)
+![Screenshot 2025-04-28 102058](https://github.com/user-attachments/assets/065d70d5-8b93-4d01-8a1c-50f3a0c36b0f)
 
 ---
 
