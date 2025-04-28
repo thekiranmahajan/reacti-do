@@ -51,18 +51,29 @@ const SignupPage = () => {
     signup(formData);
   };
   return (
-    <div className="grid h-screen lg:grid-cols-2">
+    <main className="grid h-screen lg:grid-cols-2" role="main">
       {/* Left Side */}
       <div className="flex flex-col items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
           <div className="mb-8 text-center">
             <div className="group flex flex-col items-center gap-2">
-              <img className="size-14" src="./logo.svg" alt="logo" />
-              <h1 className="mt-2 text-2xl font-bold">Welcome back</h1>
-              <p className="text-base-content/60">Sign in to your account</p>
+              <img
+                className="size-14"
+                src="./logo.svg"
+                alt="Reacti-Do Logo"
+                role="img"
+              />
+              <h1 id="signup-heading" className="mt-2 text-2xl font-bold">
+                Create Account
+              </h1>
+              <p className="text-base-content/60">Get started with Reacti-Do</p>
             </div>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form
+            aria-labelledby="signup-heading"
+            onSubmit={handleSubmit}
+            className="space-y-5"
+          >
             <InputField
               type="text"
               fieldName="fullName"
@@ -96,6 +107,10 @@ const SignupPage = () => {
               type="submit"
               className="btn btn-primary w-full"
               disabled={isSigningUp}
+              aria-busy={isSigningUp}
+              aria-label={
+                isSigningUp ? "Creating account..." : "Create account"
+              }
             >
               {isSigningUp ? (
                 <>
@@ -109,7 +124,11 @@ const SignupPage = () => {
           </form>
           <div className="text-center text-sm">
             <p className="text-base-content/60">Already have an account?</p>{" "}
-            <Link to="/login" className="link link-primary">
+            <Link
+              to="/login"
+              className="link link-primary"
+              aria-label="Sign in to existing account"
+            >
               Sign In
             </Link>
           </div>
@@ -120,8 +139,9 @@ const SignupPage = () => {
         illustration={signupIllustration}
         heading="Join Reacti-Do Today!"
         subHeading="Create an account to organize your tasks and achieve your goals."
+        aria-hidden="true"
       />
-    </div>
+    </main>
   );
 };
 

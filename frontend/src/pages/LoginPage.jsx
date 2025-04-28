@@ -19,18 +19,24 @@ const LoginPage = () => {
     login(formData);
   };
   return (
-    <div className="grid h-screen lg:grid-cols-2">
+    <main className="grid h-screen lg:grid-cols-2" role="main">
       {/* Left Side */}
       <div className="flex flex-col items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
           <div className="mb-8 text-center">
             <div className="group flex flex-col items-center gap-2">
               <img className="size-14" src="./logo.svg" alt="logo" />
-              <h1 className="mt-2 text-2xl font-bold">Welcome back</h1>
+              <h1 id="login-heading" className="mt-2 text-2xl font-bold">
+                Welcome back
+              </h1>
               <p className="text-base-content/60">Sign in to your account</p>
             </div>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form
+            aria-labelledby="login-heading"
+            onSubmit={handleSubmit}
+            className="space-y-5"
+          >
             <InputField
               type="text"
               fieldName="email"
@@ -55,6 +61,8 @@ const LoginPage = () => {
               type="submit"
               className="btn btn-primary mt-4 w-full rounded-lg"
               disabled={isLoggingIn}
+              aria-busy={isLoggingIn}
+              aria-label={isLoggingIn ? "login account..." : "login account"}
             >
               {isLoggingIn ? (
                 <>
@@ -68,7 +76,11 @@ const LoginPage = () => {
           </form>
           <div className="text-center text-sm">
             <p className="text-base-content/60">Don&apos;t have an account?</p>{" "}
-            <Link to="/signup" className="link link-primary">
+            <Link
+              to="/signup"
+              className="link link-primary"
+              aria-label="Sign-up to new account"
+            >
               Create account
             </Link>
           </div>
@@ -79,8 +91,9 @@ const LoginPage = () => {
         illustration={loginIllustration}
         heading="Welcome back to Reacti-Do!"
         subHeading="Sign in to organize your tasks and achieve your goals."
+        aria-hidden="true"
       />
-    </div>
+    </main>
   );
 };
 
