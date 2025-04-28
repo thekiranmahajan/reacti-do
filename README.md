@@ -1,6 +1,18 @@
-# Reacti-Do
+# 📈 Reacti-Do - The Ultimate MERN Stack To-Do List App
 
-Reacti-Do is a full-stack MERN (MongoDB, Express, React, Node.js) TODO list application that allows users to manage their tasks with a modern, user-friendly interface.
+Reacti-Do is a sleek, high-performance MERN stack (MongoDB, Express, React, Node.js) based to-do list application.
+
+It offers user authentication, protected routes, dynamic theming, smooth UI transitions, and CRUD operations for lists and items — all optimized with best practices, modern design, and full SEO support!
+
+---
+
+---
+
+## 📸 Preview
+
+Here are some screenshots showcasing Reacti-Do:
+
+---
 
 ---
 
@@ -10,34 +22,76 @@ Reacti-Do is a full-stack MERN (MongoDB, Express, React, Node.js) TODO list appl
 reacti-do/
 │
 ├── backend/
+│   ├── package-lock.json
 │   ├── package.json
 │   └── src/
 │       ├── server.js
 │       ├── controllers/
+│       │   ├── auth.controller.js
+│       │   ├── todoItem.controller.js
+│       │   └── todoList.controller.js
 │       ├── data/
+│       │   └── seedDataForExisting.js
 │       ├── lib/
+│       │   ├── cloudinary.js
+│       │   ├── db.js
+│       │   └── utils.js
 │       ├── middleware/
+│       │   └── protectRoute.middleware.js
 │       ├── models/
+│       │   ├── todoItem.model.js
+│       │   ├── todoList.model.js
+│       │   └── user.model.js
 │       └── routes/
+│           ├── auth.route.js
+│           ├── todoItem.route.js
+│           └── todoList.route.js
 │
 ├── frontend/
+│   ├── package-lock.json
 │   ├── package.json
-│   ├── vite.config.js
-│   ├── index.html
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   ├── index.css
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── lib/
-│   │   ├── pages/
-│   │   └── store/
-│   └── public/
+│   ├── public/
+│   │   └── logo.svg
+│   │   └── manifest.json
+│   │   └── robots.txt
+│   │   └── sitemap.xml
+│   └── src/
+│       ├── assets/
+│       │   ├── login.svg
+│       │   └── signup.svg
+│       ├── components/
+│       │   ├── AuthenticationRightSide.jsx
+│       │   ├── AuthRoute.jsx
+│       │   ├── CreatorInput.jsx
+│       │   ├── EditableInput.jsx
+│       │   ├── Header.jsx
+│       │   ├── InputField.jsx
+│       │   ├── ProtectedRoute.jsx
+│       │   ├── TodoItems.jsx
+│       │   └── TodoLists.jsx
+│       ├── lib/
+│       │   ├── axiosInstance.js
+│       │   ├── constants.js
+│       │   └── utils.js
+│       ├── pages/
+│       │   ├── HomePage.jsx
+│       │   ├── LoginPage.jsx
+│       │   ├── ProfilePage.jsx
+│       │   ├── SettingsPage.jsx
+│       │   └── SignupPage.jsx
+│       ├── store/
+│       │   ├── useAuthStore.js
+│       │   ├── useThemeStore.js
+│       │   ├── useTodoItemStore.js
+│       │   └── useTodoListStore.js
+│       ├── App.jsx
+│       ├── index.css
+│       └── main.jsx
 │
-├── .env
+├── .vscode/
 ├── .gitignore
-├── package.json
+├── .env-example
+├── LICENSE
 └── README.md
 ```
 
@@ -46,39 +100,42 @@ reacti-do/
 ## 🚀 Features
 
 - User authentication (signup, login, logout, profile update)
+- Secured user-specific CRUD operations
 - Create, update, and delete todo lists
 - Add, edit, complete, and delete todo items
 - Profile management with profile picture upload
-- Theme selection (multiple themes)
+- Theme selection (multiple themes) 35 unique Themes
 - Responsive and modern UI
 - Toast notifications for actions
 - Protected routes for authenticated users
+- Clean, intuitive user interface for ultimate productivity.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
+### 🧩 Frontend
 
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [Zustand](https://zustand-demo.pmnd.rs/) (state management)
-- [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/) (UI)
-- [React Hot Toast](https://react-hot-toast.com/) (notifications)
-- [Lucide React](https://lucide.dev/) (icons)
-- [Axios](https://axios-http.com/) (HTTP requests)
-- [React Router](https://reactrouter.com/)
+[![React](https://img.shields.io/badge/React-20232a?logo=react&logoColor=61DAFB&style=for-the-badge)](https://react.dev)
+[![React Router](https://img.shields.io/badge/React_Router-CA4245?logo=reactrouter&logoColor=white&style=for-the-badge)](https://reactrouter.com)
+[![Zustand](https://img.shields.io/badge/Zustand-000000?logo=zustand&logoColor=white&style=for-the-badge)](https://zustand-demo.pmnd.rs/)
+[![Axios](https://img.shields.io/badge/Axios-5A29E4?logo=axios&logoColor=white&style=for-the-badge)](https://axios-http.com)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com)
+[![DaisyUI](https://img.shields.io/badge/DaisyUI-3E497A?style=for-the-badge&logoColor=white)](https://daisyui.com)
+[![Lucide React](https://img.shields.io/badge/Lucide-000000?logo=lucide&logoColor=white&style=for-the-badge)](https://lucide.dev)
+[![Motion](https://img.shields.io/badge/Motion-0E0E0E?logo=framer&logoColor=white&style=for-the-badge)](https://motion.dev)
+[![Vite](https://img.shields.io/badge/Vite-646cff?logo=vite&logoColor=white&style=for-the-badge)](https://vitejs.dev)
 
-### Backend
+### ⚙️ Backend
 
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/)
-- [Cloudinary](https://cloudinary.com/) (profile picture uploads)
-- [JWT](https://jwt.io/) (authentication)
-- [bcryptjs](https://www.npmjs.com/package/bcryptjs) (password hashing)
-- [cookie-parser](https://www.npmjs.com/package/cookie-parser)
-- [CORS](https://www.npmjs.com/package/cors)
+[![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white&style=for-the-badge)](https://expressjs.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white&style=for-the-badge)](https://mongodb.com)
+[![Mongoose](https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white&style=for-the-badge)](https://mongoosejs.com)
+[![BcryptJS](https://img.shields.io/badge/BcryptJS-003B6F?style=for-the-badge)](https://github.com/dcodeIO/bcrypt.js)
+[![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?logo=cloudinary&logoColor=white&style=for-the-badge)](https://cloudinary.com)
+[![Cookie-Parser](https://img.shields.io/badge/Cookie--Parser-005555?style=for-the-badge)](https://www.npmjs.com/package/cookie-parser)
+[![CORS](https://img.shields.io/badge/CORS-0055FF?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+[![JWT](https://img.shields.io/badge/JWT-000000?logo=jsonwebtokens&logoColor=white&style=for-the-badge)](https://jwt.io)
 
 ---
 
@@ -86,16 +143,34 @@ reacti-do/
 
 ### Prerequisites
 
-- Node.js (v18+ recommended)
+- Node.js (v22+ recommended)
 - npm
+- Express.js version 5
 - MongoDB instance (local or cloud)
 - Cloudinary account (for profile picture uploads)
 
-### 1. Clone the repository
+### 1. Setup Instructions
 
-```sh
+```bash
+# Clone the repository
 git clone https://github.com/thekiranmahajan/reacti-do.git
 cd reacti-do
+
+# Navigate to backend
+cd reacti-do/backend
+npm install
+
+# Navigate to frontend
+cd ../frontend
+npm install
+
+# Start backend server
+cd ../backend
+npm run dev
+
+# Start frontend Vite dev server
+cd ../frontend
+npm run dev
 ```
 
 ### 2. Setup Environment Variables
@@ -112,33 +187,6 @@ NODE_ENV=development
 PORT=5000
 ```
 
-### 3. Install Dependencies
-
-```sh
-# Install root, backend, and frontend dependencies
-npm run build
-```
-
-### 4. Run the Application
-
-#### Start Backend
-
-```sh
-npm run start
-```
-
-#### Start Frontend (in a new terminal)
-
-```sh
-cd frontend
-npm run dev
-```
-
-- Frontend: [http://localhost:5173](http://localhost:5173)
-- Backend API: [http://localhost:5000/api](http://localhost:5000/api)
-
----
-
 ## 📋 License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -148,3 +196,8 @@ This project is licensed under the [MIT License](LICENSE).
 ## ✨ Author
 
 - [Kiran Mahajan](https://github.com/thekiranmahajan)
+- **LinkedIn** : [thekiranmahajan](https://linkedin.com/in/thekiranmahajan)
+
+---
+
+> Built with 🥭 by Kiran Mahajan
