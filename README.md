@@ -4,7 +4,6 @@ Reacti-Do is a sleek, high-performance MERN stack (MongoDB, Express, React, Node
 
 It offers user authentication, protected routes, dynamic theming, smooth UI transitions, and CRUD operations for lists and items — all optimized with best practices, modern design, and full SEO support!
 
----
 
 ---
 
@@ -16,8 +15,6 @@ Here are some screenshots showcasing Reacti-Do:
 ![Screenshot 2025-04-28 101352](https://github.com/user-attachments/assets/03be6bde-0fbf-430a-8176-15dd0875cdf5)
 ![Screenshot 2025-04-28 101429](https://github.com/user-attachments/assets/5b1ef229-883f-4f41-a51d-7d77961c0e2d)
 ![Screenshot 2025-04-28 102058](https://github.com/user-attachments/assets/065d70d5-8b93-4d01-8a1c-50f3a0c36b0f)
-
----
 
 ---
 
