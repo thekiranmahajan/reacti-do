@@ -1,0 +1,27 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/reacti-do-app", "."]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/reacti-do-app"]
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      - run
+      - deploy
+      - reacti-do-app
+      - --image=gcr.io/$PROJECT_ID/reacti-do-app
+      - --region=asia-south1
+      - --platform=managed
+      - --allow-unauthenticated
+      - --set-env-vars
+      - NODE_ENV=production,MONGODB_URI=$_MONGODB_URI,FRONTEND_BASE_URL=$_FRONTEND_BASE_URL,JWT_SECRET=$_JWT_SECRET,CLOUDINARY_CLOUD_NAME=$_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY=$_CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET=$_CLOUDINARY_API_SECRET
+
+substitutions:
+  _MONGODB_URI: dummy-value
+  _FRONTEND_BASE_URL: dummy-value
+  _JWT_SECRET: dummy-value
+  _CLOUDINARY_CLOUD_NAME: dummy-value
+  _CLOUDINARY_API_KEY: dummy-value
+  _CLOUDINARY_API_SECRET: dummy-value
