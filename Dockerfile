@@ -1,35 +1,34 @@
-
 # ---------- Step 1: Build frontend ----------
-    FROM node:22 as builder
+    FROM node:22.15.0-alpine3.20 as builder
     WORKDIR /app
     
-    # Copy frontend source and install deps
+    # Install frontend dependencies and build
     COPY frontend/package*.json frontend/
     RUN npm install --prefix frontend
     
     COPY frontend ./frontend
     RUN npm run build --prefix frontend
     
-    # ---------- Step 2: Build backend ----------
-    FROM node:22
+    # ---------- Step 2: Setup backend ----------
+    FROM node:22.15.0-alpine3.20
     WORKDIR /app
     
-    # Copy backend source and install deps
+    # Install backend dependencies
     COPY backend/package*.json backend/
     RUN npm install --prefix backend
     
-    # Copy backend source code
+    # Copy backend source
     COPY backend ./backend
     
-    # Copy built frontend into backend/dist
+    # Copy frontend build output into backend
     COPY --from=builder /app/frontend/dist ./frontend/dist
     
-    # Set working dir to backend
+    # Set working directory to backend
     WORKDIR /app/backend
     
-    # Expose port (Cloud Run uses 8080)
-    EXPOSE 5000
+    # Expose port (Cloud Run expects 8080)
+    EXPOSE 8080
     
-    # Start the server
+    # Start backend server
     CMD ["node", "src/server.js"]
     
