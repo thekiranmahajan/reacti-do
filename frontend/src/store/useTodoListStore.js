@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axiosInstance";
 import toast from "react-hot-toast";
+import useTodoItemStore from "./useTodoItemStore";
 
 const useTodoListStore = create((set, get) => ({
   isListsLoading: false,
@@ -64,9 +65,7 @@ const useTodoListStore = create((set, get) => ({
       set({
         lists: get().lists.map((list) => (list._id === data._id ? data : list)),
         selectedListId:
-          get().selectedListId && get().selectedListId._id === data._id
-            ? data
-            : get().selectedListId,
+          get().selectedListId === data._id ? data._id : get().selectedListId,
       });
       toast.success("TodoList updated successfully!");
     } catch (error) {
@@ -78,13 +77,14 @@ const useTodoListStore = create((set, get) => ({
   deleteList: async (listId) => {
     try {
       await axiosInstance.delete(`/todolist/delete/${listId}`);
+      const wasSelected = get().selectedListId === listId;
       set({
         lists: get().lists.filter((list) => list._id !== listId),
-        selectedListId:
-          get().selectedListId && get().selectedListId._id === listId
-            ? null
-            : get().selectedListId,
+        selectedListId: wasSelected ? null : get().selectedListId,
       });
+      if (wasSelected) {
+        useTodoItemStore.setState({ todoItems: [] });
+      }
       toast.success("TodoList deleted successfully!");
     } catch (error) {
       console.log("Error in deleteList fn", error);

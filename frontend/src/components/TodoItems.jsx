@@ -18,6 +18,7 @@ const TodoItems = () => {
   const handleCreateItem = (e) => {
     e.preventDefault();
     if (!newItem.trim()) return;
+    if (!selectedListId) return;
     createItem({ text: newItem, todoList: selectedListId });
     setNewItem("");
   };
@@ -57,7 +58,7 @@ const TodoItems = () => {
             placeholder="New todo item"
           />
 
-          <div className="flex-1 overflow-y-auto text-sm md:text-base">
+          <div className="max-h-[78vh] flex-1 overflow-y-auto text-sm md:text-base">
             {isItemsLoading ? (
               <div className="flex items-center justify-center p-4">
                 <Loader2 className="text-primary size-6 animate-spin" />
